@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PaisaTrack - Expense Tracker</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{background:#f6f8fb;}
+.card{border:0; border-radius:16px; box-shadow:0 4px 18px rgba(0,0,0,.06);}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark px-3 py-2">
+  <span class="navbar-brand fw-bold">👜 PaisaTrack</span>
+  <span class="text-white small">{{ user.username }} | <form action="{% url 'logout' %}" method="post" style="display:inline;">
+  {% csrf_token %}
+  <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">Logout</button>
+</form></span>
+</nav>
+
+<div class="container mt-4">
+{% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

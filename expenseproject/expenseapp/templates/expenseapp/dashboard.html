@@ -1,0 +1,48 @@
+{% extends 'expenseapp/base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="p-4 rounded-4 text-white mb-3" style="background: linear-gradient(90deg,#0d6efd,#00c6ff)">
+      <div>This Month</div>
+      <h2>Total Kharch: ₹{{total}}</h2>
+      <span class="badge bg-white text-dark">Budget: ₹2000 | Remaining: ₹{{ remaining }}</span>
+      <div class="mt-2">
+        <a href="{% url 'add_expense' %}" class="btn btn-light btn-sm rounded-pill">+ Expense</a>
+        <a href="{% url 'add_category' %}" class="btn btn-outline-light btn-sm rounded-pill">Category</a>
+      </div>
+    </div>
+    <div class="card p-3">
+      <h6>Recent Expenses - Showing {{expenses.count}} entries</h6>
+      <table class="table">
+        <tr><th>Date</th><th>Title</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+        {% for e in expenses %}
+        <tr>
+          <td>{{e.date}}</td>
+          <td>{{e.title}}</td>
+          <td><span class="badge bg-light text-dark border">{{e.category}}</span></td>
+          <td>₹{{e.amount}}</td>
+          <td><a href="{% url 'delete_expense' e.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete karna hai?')">🗑️</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card p-4 text-center">
+      <h6 class="fw-bold">Expense Breakdown</h6>
+      <div class="mx-auto my-4" style="width:180px; height:180px; border-radius:50%; background: conic-gradient(#0d6efd 0% 58%, #ff6b6b 58% 100%); position:relative;">
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:100px; height:100px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-direction:column;">
+          <span>₹{{total}}</span><small style="font-size:10px;">Total</small>
+        </div>
+      </div>
+      <div class="text-start small">
+        {% for e in expenses %}
+        <div class="d-flex justify-content-between mb-1"><span>● {{e.category}} - ₹{{e.amount}}</span></div>
+        {% endfor %}
+      </div>
+      <div class="alert alert-primary mt-3 mb-0 py-2">Total: ₹{{total}} | {{expenses.count}} transaction</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
